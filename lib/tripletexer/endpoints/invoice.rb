@@ -24,7 +24,7 @@ module Tripletexer::Endpoints
 
     # https://tripletex.no/v2-docs/#!/invoice/downloadPdf
     def download_pdf(id)
-      get("/v2/invoice/#{id}/pdf")
+      api_client.get("/v2/invoice/#{id}/pdf")
     end
 
     # https://tripletex.no/v2-docs/#!/invoice/payment
