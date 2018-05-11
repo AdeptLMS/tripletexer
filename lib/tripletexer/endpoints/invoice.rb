@@ -17,6 +17,10 @@ module Tripletexer::Endpoints
       create_entity('/v2/invoice', body)
     end
 
+    def create_without_notification(body)
+      create_entity('/v2/invoice?sendToCustomer=false', body)
+    end
+
     # https://tripletex.no/v2-docs/#!/invoice/get
     def find(id, params = {})
       find_entity("/v2/invoice/#{id}", params)
@@ -34,7 +38,11 @@ module Tripletexer::Endpoints
         'paymentTypeId' => payment_type_id,
         'paidAmount' => paid_amount
       }
-      api_client.put("/v2/invoice/#{id}/:payment", final_params)
+      api_client.put("/v2/invoice/#{id}/:payment?paymentDate=#{payment_date}&paymentTypeId=#{payment_type_id}&paidAmount=#{paid_amount}")
+    end
+
+    def send_notification(id, send_type = 'EMAIL')
+      api_client.put("/v2/invoice/#{id}/:send?sendType=#{send_type}")
     end
 
     def payment_type
