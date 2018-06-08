@@ -14,11 +14,11 @@ module Tripletexer::Endpoints
 
     # https://tripletex.no/v2-docs/#!/invoice/post
     def create(body)
-      create_entity('/v2/invoice', body)
+      create_entity('/v2/invoice?sendToCustomer=false', body)
     end
 
-    def create_without_notification(body)
-      create_entity('/v2/invoice?sendToCustomer=false', body)
+    def create_with_notification(body)
+      create_entity('/v2/invoice?sendToCustomer=true', body)
     end
 
     # https://tripletex.no/v2-docs/#!/invoice/get
