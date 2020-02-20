@@ -10,7 +10,7 @@ module Tripletexer::Endpoints
 
     # https://tripletex.no/v2-docs/#!/contact/post
     def create(body)
-      cerate_entity('/v2/contact', body)
+      create_entity('/v2/contact', body)
     end
 
     # https://tripletex.no/v2-docs/#!/contact/get
