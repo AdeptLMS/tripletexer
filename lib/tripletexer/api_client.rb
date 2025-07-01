@@ -3,7 +3,6 @@
 require 'uri'
 require 'json'
 require 'faraday'
-require 'faraday_middleware'
 
 
 class Tripletexer::APIClient
@@ -59,13 +58,13 @@ class Tripletexer::APIClient
         'Content-Type' => 'application/json'
       }
       faraday.adapter :net_http
-      faraday.basic_auth(0, session_token) if session_token
+      faraday.request(:authorization, :basic, 0, session_token)  if session_token
       faraday.proxy = proxy if proxy # https://github.com/lostisland/faraday/issues/733
     end
   end
 
   def call(method, path, *args, &block)
-    normalized_path = URI.escape(path)
+    normalized_path = uri_escape(path)
     response = connection.public_send(method, normalized_path, *args, &block)
     handle_response(response)
   end
@@ -92,4 +91,7 @@ class Tripletexer::APIClient
     end
   end
 
+  def uri_escape(uri)
+    URI::DEFAULT_PARSER.escape(uri)
+  end
 end

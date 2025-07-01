@@ -1,7 +1,7 @@
 require 'coveralls'
-Coveralls.wear!
-
 require 'simplecov'
+
+SimpleCov.formatter = Coveralls::SimpleCov::Formatter
 SimpleCov.start do
   add_filter %r{^/spec/}
   add_group 'Endpoints', 'lib/tripletexer/endpoints'
